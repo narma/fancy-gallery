@@ -1,0 +1,9 @@
+target
+.DS_Store
+.nrepl-port
+/photos
+/resources/public/img
+*.iml
+.idea
+.lein-repl-history
+/resources/public/mock
