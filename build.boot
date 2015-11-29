@@ -7,16 +7,21 @@
                  [org.clojure/clojure "1.7.0"]
 
                   ;; boot stuff
-                 [adzerk/boot-cljs "1.7.48-6"]
-                 [adzerk/boot-cljs-repl "0.2.0"]
-                 [adzerk/boot-reload "0.4.1"]
+                 [adzerk/boot-cljs "1.7.170-3"]
+                 ;; repl stuff
+                 [adzerk/boot-cljs-repl "0.3.0"]
+                 [com.cemerick/piggieback "0.2.1" :scope "test"]
+                 [weasel "0.7.0" :scope "test"]
+                 [org.clojure/tools.nrepl "0.2.12" :scope "test"]
+
+                 [adzerk/boot-reload "0.4.2"]
                  [pandeiro/boot-http "0.7.0"]
                  [mathias/boot-sassc "0.1.5"]
 
-                 [org.clojure/clojurescript "1.7.145"]
-                 [org.omcljs/om "1.0.0-alpha14"]
-                 [sablono "0.3.6"]
-                 [datascript "0.13.2"]
+                 [org.clojure/clojurescript "1.7.170"]
+                 [org.omcljs/om "1.0.0-alpha24"]
+                 [sablono "0.4.0"]
+                 [datascript "0.13.3"]
                  ]
                  )
 
