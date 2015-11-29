@@ -7,10 +7,13 @@
    [adzerk/boot-cljs-repl "0.2.0"]
    [adzerk/boot-reload "0.4.1"]
    [pandeiro/boot-http "0.7.0"]
-   [deraen/boot-sass "0.1.1"]
-   [org.clojure/clojurescript "1.7.170"]
-   [org.omcljs/om "1.0.0-alpha24"]
+   [mathias/boot-sassc "0.1.5"]
+   [org.clojure/clojurescript "1.7.145"]
+   [org.omcljs/om "1.0.0-alpha14"]
    [sablono "0.3.6"]
-   [datascript "0.13.2"]]
+   [datascript "0.13.2"]
+   [org.clojure/clojure "1.7.0"]
+   [me.raynes/conch "0.8.0"]
+   [me.raynes/fs "1.4.6"]]
   :source-paths
-  ["src" "style" "resources/public"])
+  ["src" "scripts" "resources/public"])

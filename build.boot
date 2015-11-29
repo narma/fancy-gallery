@@ -60,14 +60,16 @@
     (sass :compression true)))
 
 ;; Scripts
-(deftask scripts
-  "Execute scripts"
-  []
-  (set-env! :source-paths #(conj % "scripts"))
-  (set-env! :dependencies '[
+(def scripts-deps '[
+                 [org.clojure/clojure "1.7.0"]
                  [me.raynes/conch "0.8.0"]
                  [me.raynes/fs "1.4.6"]
                  ])
+(deftask scripts
+  "Execute scripts"
+  []
+  (set-env! :source-paths #{"scripts"})
+  (set-env! :dependencies scripts-deps)
   identity)
 
 (deftask prep-images
@@ -85,3 +87,10 @@
 
 (task-options!
   prep-images {:images-dir "photos"})
+
+(deftask lein
+  "lein generate helper"
+  []
+  (set-env! :source-paths #{"src" "scripts"})
+  (set-env! :dependencies #(into [] (concat % scripts-deps)))
+  identity)
