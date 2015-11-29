@@ -12,7 +12,6 @@
                  :where [?e :app/title]]
             (d/db state) selector)})
 
-
 (defmethod mutate 'app/increment
   [{:keys [state]} _ entity]
   {:value [:app/counter]
