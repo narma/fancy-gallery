@@ -3,6 +3,7 @@
 (set-env!
  :source-paths #{"src" "style"}
  :resource-paths #{"resources/public"}
+ :target-path "target/dev"
  :dependencies '[
                  [org.clojure/clojure "1.7.0"]
 
@@ -19,7 +20,7 @@
                  [mathias/boot-sassc "0.1.5"]
 
                  [org.clojure/clojurescript "1.7.170"]
-                 [org.omcljs/om "1.0.0-alpha24"]
+                 [org.omcljs/om "1.0.0-alpha14"]
                  [sablono "0.4.0"]
                  [datascript "0.13.3"]
                  ]
@@ -38,7 +39,7 @@
 (deftask dev
   "Start development environment"
   []
-  (comp (serve :dir "target"
+  (comp (serve :dir "target/dev"
                :port 5000)
         (watch)
         (sass :sass-file "main.scss"
@@ -52,17 +53,17 @@
 ;                                 :foreign-libs [{:file "js/photoswipe/photoswipe.js"
 ;                                                 :provides ["PhotoSwipe"]}]
 ;                                 :externs ["js/photoswipe/ext.js"]
-                                 :warnings {:single-segment-namespace false}})
+                                 })
         ))
 
 (deftask prod
   "Compile production version"
   []
-  (set-env! :target-path "prod")
+  (set-env! :target-path "target/prod")
   (comp
-    (cljs :optimizations :advanced
-          :compiler-options {:warnings {:single-segment-namespace false}})
-    (sass :compression true)))
+    (cljs :optimizations :advanced)
+    (sass :sass-file "main.scss"
+              :source-maps false)))
 
 ;; Scripts
 (def scripts-deps '[

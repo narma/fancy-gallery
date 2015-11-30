@@ -24,4 +24,4 @@
   (om/add-root! reconciler
     Photoswipe (gdom/getElement "app")))
 
-(main)
+; (main)

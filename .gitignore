@@ -1,6 +1,7 @@
 target
 .DS_Store
 .nrepl-port
+.nrepl-history
 /photos
 /resources/public/img
 *.iml
