@@ -6,25 +6,22 @@
  :target-path "target/dev"
  :dependencies '[
                  [org.clojure/clojure "1.7.0"]
-
+                 ;; dev deps
                   ;; boot stuff
-                 [adzerk/boot-cljs "1.7.170-3"]
+                 [adzerk/boot-cljs "1.7.170-3" :scope "test"]
+                 [adzerk/boot-reload "0.4.2" :scope "test"]
+                 [pandeiro/boot-http "0.7.0" :scope "test"]
+                 [mathias/boot-sassc "0.1.5" :scope "test"]
+                 [tonsky/boot-anybar "0.1.0" :scope "test"]
                  ;; repl stuff
                  [adzerk/boot-cljs-repl "0.3.0"]
                  [com.cemerick/piggieback "0.2.1" :scope "test"]
                  [weasel "0.7.0" :scope "test"]
                  [org.clojure/tools.nrepl "0.2.12" :scope "test"]
-
-                 [adzerk/boot-reload "0.4.2"]
-                 [pandeiro/boot-http "0.7.0"]
-                 [mathias/boot-sassc "0.1.5"]
-
+                 ;; clojurescript
                  [org.clojure/clojurescript "1.7.170"]
-                 [org.omcljs/om "1.0.0-alpha14"]
-                 [sablono "0.4.0"]
-                 [datascript "0.13.3"]
-                 ]
-                 )
+                 [org.omcljs/om "1.0.0-alpha24"]
+                 [sablono "0.4.0"]])
 
 (require
   '[adzerk.boot-cljs :refer [cljs]]
@@ -32,6 +29,7 @@
   '[adzerk.boot-reload :refer [reload]]
   '[pandeiro.boot-http :refer [serve]]
   '[mathias.boot-sassc :refer [sass]]
+  '[tonsky.boot-anybar :refer [anybar]]
   '[boot.cli :as cli])
 
 ;; How to use js libs in clojurescript
@@ -42,19 +40,14 @@
   (comp (serve :dir "target/dev"
                :port 5000)
         (watch)
-        (sass :sass-file "main.scss"
-              :source-maps true)
-        (speak)
+        ; (speak)
+        (anybar)
         (reload :on-jsload 'gallery.core/main)
         (cljs-repl)
         (cljs :source-map true
-              :optimizations :none
-              :compiler-options {
-;                                 :foreign-libs [{:file "js/photoswipe/photoswipe.js"
-;                                                 :provides ["PhotoSwipe"]}]
-;                                 :externs ["js/photoswipe/ext.js"]
-                                 })
-        ))
+              :optimizations :none)
+        (sass :sass-file "main.scss"
+              :source-maps true)))
 
 (deftask prod
   "Compile production version"
