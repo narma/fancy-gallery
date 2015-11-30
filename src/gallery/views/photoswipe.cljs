@@ -76,12 +76,16 @@
              [:div {:class "pswp__preloader__donut"}]]]]]
                   ; top-bar
 
-         [:div.pswp__share-modal.pswp__share-modal--hidden.pswp__single-tap
+         [:div {:class ["pswp__share-modal"
+                        "pswp__share-modal--hidden"
+                        "pswp__single-tap"]}
           [:div.pswp__share-tooltip]]
-         [:button.pswp__button.pswp__button--arrow--left
-          {:title "Previous (arrow left)"}]
-         [:button.pswp__button.pswp__button--arrow--right
-          {:title "Next (arrow right)"}]
+         [:button {:class ["pswp__button"
+                           "pswp__button--arrow--left"]
+                   :title "Previous (arrow left)"}]
+         [:button {:class ["pswp__button"
+                           "pswp__button--arrow--right"]
+                   :title "Next (arrow right)"}]
          [:div.pswp__caption
           [:div.pswp__caption__center]]]]]))))
                 

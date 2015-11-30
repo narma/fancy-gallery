@@ -7,7 +7,7 @@
 
 (enable-console-print!)
 
-(def init-data {})
+(def init-data {:gallery/photos []})
 
 (def reconciler
   (om/reconciler
