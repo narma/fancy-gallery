@@ -1,4 +1,4 @@
-(ns gallery.parts.photoswipe
+(ns gallery.views.photoswipe
   (:require [om.next :as om :refer-macros [defui]]
             [sablono.core :as html :refer-macros [html]]
             [gallery.state :refer [read mutate]]))

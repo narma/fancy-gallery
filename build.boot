@@ -60,32 +60,29 @@
 
 ;; Scripts
 (def scripts-deps '[
-                 [org.clojure/clojure "1.7.0"]
-                 [me.raynes/conch "0.8.0"]
-                 [me.raynes/fs "1.4.6"]
-                 ])
+                    [org.clojure/clojure "1.7.0"]
+                    [me.raynes/conch "0.8.0"]
+                    [me.raynes/fs "1.4.6"]
+                    [org.clojure/data.json "0.2.6"]])
+
 (deftask scripts
-  "Execute scripts"
-  []
+ []
+ (set-env! :source-paths #{"scripts"})
+ (set-env! :dependencies scripts-deps)
+ identity)
+ 
+(deftask cli
+  "Execute cli"
+  [x script SCRIPT str "script to execute"
+   a args ARGS str "args for script"]
   (set-env! :source-paths #{"scripts"})
   (set-env! :dependencies scripts-deps)
-  identity)
-
-(deftask prep-images
-  "prepate images script"
-
-  [i images-dir IMAGES_DIR str "Dir with original photos"
-   d dest-dir DEST_DIR str "Destination dir"
-   s size SIZE int "New dimension size"]
-
-  (require 'images.prep)
+  (require 'cli.main)
   (with-pre-wrap fileset
-    (let [prep (resolve 'images.prep/main)]
-      (prep images-dir dest-dir)
-      fileset)))
-
-(task-options!
-  prep-images {:images-dir "photos"})
+    (let [main (resolve 'cli.main/-main)]
+      (main script args))
+    fileset))
+  
 
 (deftask lein
   "lein generate helper"

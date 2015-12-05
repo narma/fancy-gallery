@@ -1,4 +1,9 @@
 (ns gallery.server.io
- """Ns for interaction with server. Uses `fetch` API (required polyfill for some browsers)
-	Q: use goog.net.XhrIo instead?
-""")
+ (:require [gallery.util.log :refer [error]]))
+
+(defn fetch 
+ [url cb & [{:as opts}]] 
+ (let [promise (js/fetch url opts)] 
+   (doto promise
+    (.then cb)
+    (.catch #(error %))))) 

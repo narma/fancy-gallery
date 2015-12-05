@@ -3,6 +3,11 @@
 /* @import "ps/main"; */
 /* @import "ps/default-skin/default-skin.scss"; */
 
-ul.gallery li {
-  display: inline-block;
+// ul.gallery li {
+//   display: inline-block;
+// }
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
 }

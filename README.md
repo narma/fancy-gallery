@@ -2,7 +2,9 @@
 fill me in!
 
 ## Usage
-fill me in!
+
+`boot cli -x metadata -a '$path_to_dir'`
+`boot cli -x resize -a 'photos photos/230 230 230'`
 
 ## Dev notes
 
