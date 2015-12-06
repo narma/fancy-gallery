@@ -6,8 +6,15 @@
  :target-path "target/dev"
  :dependencies '[
                  [org.clojure/clojure "1.7.0"]
+                 ;; clojurescript
+                 [org.clojure/clojurescript "1.7.170"]
+                 [org.omcljs/om "1.0.0-alpha25"]
+                 [sablono "0.4.0"]
                  ;; dev deps
-                  ;; boot stuff
+                 ;; dev server
+                 [ring/ring-devel "1.4.0" :scope "test"]
+                 [bidi "1.21.1" :scope "test"]
+                 ;; boot stuff
                  [adzerk/boot-cljs "1.7.170-3" :scope "test"]
                  [adzerk/boot-reload "0.4.2" :scope "test"]
                  [pandeiro/boot-http "0.7.0" :scope "test"]
@@ -17,11 +24,8 @@
                  [adzerk/boot-cljs-repl "0.3.0"]
                  [com.cemerick/piggieback "0.2.1" :scope "test"]
                  [weasel "0.7.0" :scope "test"]
-                 [org.clojure/tools.nrepl "0.2.12" :scope "test"]
-                 ;; clojurescript
-                 [org.clojure/clojurescript "1.7.170"]
-                 [org.omcljs/om "1.0.0-alpha24"]
-                 [sablono "0.4.0"]])
+                 [org.clojure/tools.nrepl "0.2.12" :scope "test"]])
+                 
 
 (require
   '[adzerk.boot-cljs :refer [cljs]]
@@ -37,11 +41,12 @@
 (deftask dev
   "Start development environment"
   []
-  (comp (serve :dir "target/dev"
+  (comp (serve :handler 'dev.handler/dev-handler
+               :reload true
                :port 5000)
         (watch)
-        ; (speak)
-        (anybar)
+        (speak)
+        ; (anybar)
         (reload :on-jsload 'gallery.core/main)
         (cljs-repl)
         (cljs :source-map true

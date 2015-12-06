@@ -3,8 +3,14 @@ fill me in!
 
 ## Usage
 
-`boot cli -x metadata -a '$path_to_dir'`
+### Cli tasks
+
+`boot cli -x metadata -a photos`
 `boot cli -x resize -a 'photos photos/230 230 230'`
+
+## Dependencies
+- sassc for compiling styles
+- imagemagick tools for cli tools: generate metadata, resizing images, etc.
 
 ## Dev notes
 
