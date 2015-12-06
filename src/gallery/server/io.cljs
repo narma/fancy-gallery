@@ -5,5 +5,5 @@
  [url cb & [{:as opts}]] 
  (let [promise (js/fetch url opts)] 
    (doto promise
-    (.then cb)
-    (.catch #(error %))))) 
+    (.then #(.then (.text %) cb))
+    (.catch #(error %)))))

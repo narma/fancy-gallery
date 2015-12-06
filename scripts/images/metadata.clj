@@ -5,9 +5,10 @@
   "
   (:require
    [clojure.java.io :as io]
-   [clojure.data.json :as json]
+   [cognitect.transit :as t]
    [utils.im :refer [image-size]]
-   [utils.io :refer [images]]))
+   [utils.io :refer [images]])
+ (:import [java.io ByteArrayInputStream ByteArrayOutputStream]))
    
 (defn image-info
   [file]
@@ -22,6 +23,9 @@
 (defn write-metadata
   [dir]
   (let [metadata (gen-metadata dir)
+        buff (ByteArrayOutputStream. 4096)
+        w (t/writer buff :json)
         out (str dir "/metadata.json")]
     (println metadata)
-    (spit out (json/write-str metadata))))
+    (t/write w metadata)
+    (spit out (.toString buff)))) 

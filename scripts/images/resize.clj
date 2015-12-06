@@ -8,6 +8,7 @@
   
 (defn resize
   [src-dir out-dir w h]
+  (println (format "Shrink images from `%s` to `%s` to %sx%s" src-dir out-dir w h))
   (doseq [img (images src-dir)]
     (shrink (.getAbsolutePath img)
             (str out-dir "/" (.getName img))

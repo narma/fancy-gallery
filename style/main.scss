@@ -1,13 +1,23 @@
-/* @import url(https://cdn.jsdelivr.net/photoswipe/4.1.0/photoswipe.css);
-@import url("https://cdn.jsdelivr.net/photoswipe/4.1.0/default-skin/default-skin.css"); */
-/* @import "ps/main"; */
-/* @import "ps/default-skin/default-skin.scss"; */
-
-// ul.gallery li {
-//   display: inline-block;
-// }
-
 .gallery {
+  $block-size: 300px;
   display: flex;
   flex-wrap: wrap;
+  > figure {
+    display: flex;
+    justify-content: center;
+    margin: 15px 15px;
+    border: 1px solid grey;
+    width: $block-size;
+    height: $block-size;
+    img {
+       object-fit: contain;
+       overflow: hidden;
+       max-height: 100%;
+       max-width: 100%;
+    }
+  }
+}
+
+body {
+  background: #fdfdfd;
 }

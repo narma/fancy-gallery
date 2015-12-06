@@ -68,7 +68,7 @@
                     [org.clojure/clojure "1.7.0"]
                     [me.raynes/conch "0.8.0"]
                     [me.raynes/fs "1.4.6"]
-                    [org.clojure/data.json "0.2.6"]])
+                    [com.cognitect/transit-clj "0.8.285"]])
 
 (deftask scripts
  []

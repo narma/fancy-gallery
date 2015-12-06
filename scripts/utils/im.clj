@@ -4,7 +4,7 @@
    [clojure.string :as str]
    [me.raynes.conch :refer [programs with-programs let-programs] :as sh]))  
    
-(programs identify convert)
+(programs identify convert mogrify)
 
 (defn image-size
   "returns image size by filename => (w h)"
@@ -15,4 +15,10 @@
 
 (defn shrink
   [filename out {:keys [w h]}]
-  (convert filename "-resize" (str w "x" h ">") out))
+  (convert filename "-resize" (format "%sx%s" w h) out))
+  
+(defn thumb
+ [filename out {:keys [w h]}]
+ (let [size (format "%sx%s" w h)]
+   (mogrify filename "-define" "jpeg:size=500x" "-thumbnail" (str size "^") 
+          "-gravity" "center" "-extent" size)))
