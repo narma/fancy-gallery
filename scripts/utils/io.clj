@@ -10,7 +10,7 @@
                 (fs/extension))]
     (contains? image-exts ext)))
     
- (defn images
-  [dir]
-  (->> (file-seq (io/file dir))
-    (filter image?)))
+(defn images
+ [dir]
+ (->> (file-seq (io/file dir))
+   (filter image?)))
