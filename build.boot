@@ -1,7 +1,7 @@
 #!/usr/bin/env boot
 
 (set-env!
- :source-paths #{"src" "style"}
+ :source-paths #{"src/ui" "style"}
  :resource-paths #{"resources/public"}
  :target-path "target/dev"
  :dependencies '[
@@ -52,7 +52,8 @@
         (cljs :source-map true
               :optimizations :none)
         (sass :sass-file "main.scss"
-              :source-maps true)))
+              :source-maps true)
+        (target :dir ["target/dev"])))
 
 (deftask prod
   "Compile production version"
@@ -92,6 +93,6 @@
 (deftask lein
   "lein generate helper"
   []
-  (set-env! :source-paths #{"src" "scripts"})
+  (set-env! :source-paths #{"src/ui" "scripts"})
   (set-env! :dependencies #(into [] (concat % scripts-deps)))
   identity)

@@ -1,26 +1,34 @@
 (ns gallery.views.photoswipe
   (:require [om.next :as om :refer-macros [defui]]
             [sablono.core :as html :refer-macros [html]]
+            [gallery.util.log :refer [log]]
             [gallery.state :refer [read mutate]]))
+            
+(defn map-photo 
+  [{:keys [name w h]}]
+  {:src (str "/photos/2000/" name)
+   :msrc (str "/photos/thumbs/" name)
+   :w w
+   :h h})
 
 (defui Photoswipe
+  static om/IQuery
+  (query [this]
+   '[:app/photos])
   Object
-  (componentDidMount 
-   [this]
-   (let [node (js/ReactDOM.findDOMNode this)
-         items [{:src "img/kitten-2.jpg"
-                 :msrc "img/h-kitten-2.jpg"
-                 :w 960
-                 :h 800}
-                {:src "img/kitten-1.jpg"
-                 :msrc "img/h-kitten-1.jpg"
-                 :w 1275
-                 :h 1028}]]
-                                  
-     (.init (js/PhotoSwipe.
-             node
-             js/PhotoSwipeUI_Default
-             (clj->js items)))))
+  (componentDidUpdate 
+   [this prev-props prev-state]
+   (let [_ (log (clj->js (om/props this)))
+         node (js/ReactDOM.findDOMNode this)
+         {:keys [app/photos]} (om/props this)
+         items (map map-photo photos)
+         _ (log items)]
+     (when-not (empty? items)
+          (log "init!!!")
+          (.init (js/PhotoSwipe.
+                  node
+                  js/PhotoSwipeUI_Default
+                  (clj->js items))))))
                      
   (render 
    [this]
@@ -89,5 +97,4 @@
          [:div.pswp__caption
           [:div.pswp__caption__center]]]]]))))
                 
-
-
+(def photoswipe (om/factory Photoswipe))

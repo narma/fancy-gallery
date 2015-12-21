@@ -23,11 +23,15 @@
                               
 (def init-state {:app/photos []})
  
-(defn ask-server-about-state 
- [{:keys [remote-init]} cb]
- (println "ask")
- (when remote-init
+(defn fetch-data
+ [{:keys [remote-thumbs remote-photos]} cb]
+ (when remote-thumbs
+  (log "fetch thumbs")
   (fetch "/photos/thumbs/metadata.json" 
+   #(cb {:app/thumbs (t/read (om/reader) %)})))
+ (when remote-photos
+  (log "fetch photos")
+  (fetch "/photos/2000/metadata.json" 
    #(cb {:app/photos (t/read (om/reader) %)}))))
  
 
@@ -36,8 +40,8 @@
  (let [reconciler
        (om/reconciler
           {:state init-state
-           :remotes [:remote :remote-init]
-           :send ask-server-about-state
+           :remotes [:remote :remote-thumbs :remote-photos]
+           :send fetch-data
            :parser (om/parser {:read read :mutate mutate})})]    
   (om/add-root! reconciler
      Index (gdom/getElement "app"))))

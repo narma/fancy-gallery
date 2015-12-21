@@ -9,10 +9,18 @@
 ;  (let [st @state]
 ;   {:value (:app/photos st)}))
 
-(defmethod read :app/photos
+(defmethod read :app/thumbs
   [{:keys [state ast] :as env} k _]
   (let [data (get @state k [])] 
    (merge
      {:value data} 
      (when (empty? data)
-       {:remote-init ast}))))
+       {:remote-thumbs ast}))))
+       
+(defmethod read :app/photos
+ [{:keys [state ast] :as env} k _]
+ (let [data (get @state k [])] 
+  (merge
+    {:value data} 
+    (when (empty? data)
+      {:remote-photos ast}))))
