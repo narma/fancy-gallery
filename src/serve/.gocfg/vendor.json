@@ -1,0 +1,9 @@
+{
+  "GitRepos": {
+    "src/gopkg.in/edn.v1": {
+      "URI": "https://gopkg.in/edn.v1",
+      "Ref": "656c6f96f0eabf34fc2952db383a858e0c319f57"
+    }
+  },
+  "MercurialRepos": {}
+}

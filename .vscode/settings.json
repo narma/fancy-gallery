@@ -3,5 +3,6 @@
 	"search.exclude": {
 		".git": true,
 		"target": true
-	}
+	},
+	"go.gopath": "/home/narma/go:/home/narma/w/fancy-gallery/src/serve"
 }

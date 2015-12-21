@@ -10,3 +10,5 @@ out
 .idea
 .lein-repl-history
 /resources/public/mock
+
+src/serve/pkg
