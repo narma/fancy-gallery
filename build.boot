@@ -62,7 +62,8 @@
   (comp
     (cljs :optimizations :advanced)
     (sass :sass-file "main.scss"
-              :source-maps false)))
+              :source-maps false)
+    (target :dir ["target/prod"])))
 
 ;; Scripts
 (def scripts-deps '[
