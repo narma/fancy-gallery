@@ -7,6 +7,7 @@
 (defn map-photo 
   [{:keys [name w h]}]
   {:src (str "/photos/2000/" name)
+   :rawsrc (str "/photos/" name)
    :w w
    :h h})
    
@@ -31,13 +32,16 @@
            pw (js/PhotoSwipe.
                node
                js/PhotoSwipeUI_Default
-               (clj->js items))]
+               (clj->js items)
+               (clj->js {:index index
+                         :getImageURLForShare #(.. (aget this :photoswipe)
+                                                -currItem -rawsrc)}))]
+          
        (aset this :photoswipe pw)
        (.listen pw "close" #(.handleClose this))
-      (.init pw)
-      (.goTo this index))))
-  
-  (goTo [this index]
+      (.init pw))))
+      
+  (goTo [this index] 
     (when-let [pw (aget this :photoswipe)]
      (when-not (nil? index)
        (.goTo pw index))))
@@ -59,7 +63,7 @@
         (.updateSize pw true)
         (.goTo this goto)))
        
-     (when (:is-open state)
+    (when (:is-open state)
       (.close pw)))))
       
  (componentWillUnmount 
@@ -70,7 +74,7 @@
  (render 
   [this]
   (html
-             ;; Root element of PhotoSwipe. Must have class pswp.
+    ;; Root element of PhotoSwipe. Must have class pswp.
    [:div {:class "pswp"
           :tabIndex -1
           :role "dialog"
