@@ -5,9 +5,13 @@
 (defmulti mutate om/dispatch)
 
 (defmethod read :photoswipe
- [{:keys [state] :as env} _ params]
+ [{:keys [state] :as env} _ _]
  (let [st @state]
-  {:value (merge (:photoswipe st) {:photos (:app/photos st)})}))
+  {:value (merge (:photoswipe st) {:photos (:app/photos st)})})) 
+  
+(defmethod read :toggle
+ [{:keys [state] :as env} _ _]
+ {:value (get @state :toggle 0)})
 
 (defmethod read :app/thumbs
   [{:keys [state ast] :as env} k _]

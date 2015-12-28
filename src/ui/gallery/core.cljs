@@ -6,11 +6,12 @@
    [gallery.state :refer [read mutate]]
    [gallery.server.io :refer [fetch]]
    [gallery.util.log :refer [log]]
-   [gallery.views.index :refer [Index]]))
+   [gallery.views.index :refer [Index]]
+   [gallery.views.photoswipe :refer [Photoswipe]]))
 
 (enable-console-print!)
                               
-(def init-state {:app/photos []})
+(def init-state {:app/photos [] :toggle 0 :photoswipe {:is-open false}})
  
 (defn fetch-data
  [{:keys [remote-thumbs remote-photos]} cb]

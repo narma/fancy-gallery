@@ -7,10 +7,10 @@
             
 (defmethod mutate 'photo/click
   [{:keys [state]} _ {:keys [index]}]
-  (log "click")
   {:action
     (fn []
-      (swap! state update-in [:photoswipe] assoc :goto index :is-open true))})
+     (swap! state update-in [:photoswipe] assoc :goto index :is-open true)
+     (swap! state update-in [:toggle] inc))})
             
 (defn photo-html
   [onClick index {:keys [name] :as opts}]
@@ -20,7 +20,7 @@
 (defui Index
   static om/IQuery
   (query [this]
-   [:app/thumbs :app/photos {:photoswipe (om/get-query Photoswipe)}])
+   `[:app/thumbs :app/photos :toggle {:photoswipe ~(om/get-query Photoswipe)}])
   Object
   (render 
    [this]

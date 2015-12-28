@@ -13,17 +13,26 @@
    
 (def !empty? (complement empty?))
 
+(defmethod mutate 'photoswipe/onclose
+ [{:keys [state]} _ _]
+ {:action
+  (fn []
+   (swap! state dissoc :photoswipe))})
+
 (defui Photoswipe
   static om/IQuery
   (query [this]
-   '[:photos :goTo :is-open])
+   '[:photos :goto :is-open])
    
   Object
   (initLocalState [_]
     {:is-open false})
   
   (handleClose [this]
-   (om/update-state! this :is-open (constantly false)))
+   (om/update-state! this :is-open (constantly false))
+   (om/transact! this `[(photoswipe/onclose)])
+   (when-let [on-close (:on-close (om/props this))]
+     (on-close)))
     
   (showGallery [this items index]
    (when (!empty? items)
