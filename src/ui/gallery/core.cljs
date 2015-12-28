@@ -9,17 +9,6 @@
    [gallery.views.index :refer [Index]]))
 
 (enable-console-print!)
-
-; (def init-state {:app/photos [{:name "/photos/thumbs/fotoencho_0232.jpg"}
-;                               {:name "/photos/thumbs/fotoencho_0808.jpg"}
-;                               {:name "/photos/thumbs/fotoencho_0457.jpg"}
-;                               {:name "/photos/thumbs/fotoencho_0098.jpg"}
-;                               {:name "/photos/thumbs/fotoencho_0350.jpg"}
-;                               {:name "/photos/thumbs/fotoencho_0020.jpg"}
-;                               {:name "/photos/thumbs/fotoencho_0137.jpg"}
-;                               {:name "/photos/thumbs/fotoencho_0215.jpg"}
-;                               {:name "/photos/thumbs/fotoencho_0332.jpg"}
-;                               {:name "/photos/thumbs/fotoencho_0488.jpg"}]})
                               
 (def init-state {:app/photos []})
  

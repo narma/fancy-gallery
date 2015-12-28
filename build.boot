@@ -8,7 +8,7 @@
                  [org.clojure/clojure "1.7.0"]
                  ;; clojurescript
                  [org.clojure/clojurescript "1.7.170"]
-                 [org.omcljs/om "1.0.0-alpha25"]
+                 [org.omcljs/om "1.0.0-alpha28"]
                  [sablono "0.4.0"]
                  ;; dev deps
                  ;; dev server

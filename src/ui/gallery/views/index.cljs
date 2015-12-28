@@ -2,23 +2,33 @@
   (:require [om.next :as om :refer-macros [defui]]
             [sablono.core :as html :refer-macros [html]]
             [gallery.util.log :refer [log]]
-            [gallery.views.photoswipe :refer [photoswipe]]))
+            [gallery.state :refer [read mutate]]
+            [gallery.views.photoswipe :refer [Photoswipe photoswipe]]))
+            
+(defmethod mutate 'photo/click
+  [{:keys [state]} _ {:keys [index]}]
+  (log "click")
+  {:action
+    (fn []
+      (swap! state update-in [:photoswipe] assoc :goto index :is-open true))})
             
 (defn photo-html
-  [{:keys [name] :as opts}]
-  [:figure {:key name :on-click #(log %1)}
+  [onClick index {:keys [name] :as opts}]
+  [:figure {:key name :on-click #(onClick index)}
     [:img {:src (str "/photos/thumbs/" name)}]])
     
 (defui Index
   static om/IQuery
   (query [this]
-    '[:app/thumbs :app/photos])
+   [:app/thumbs :app/photos {:photoswipe (om/get-query Photoswipe)}])
   Object
   (render 
    [this]
-   (let [{:keys [app/thumbs app/photos]} (om/props this)]
+   (let [{:keys [app/thumbs app/photos]} (om/props this)
+         onPhotoClick (fn [index]
+                       (om/transact! this `[(photo/click {:index ~index})]))]
      (html [:div
-            (photoswipe (om/props this))
+            (photoswipe (:photoswipe (om/props this)))
             [:div.gallery
-               (map photo-html thumbs)]]))))
+               (map-indexed (partial photo-html onPhotoClick) thumbs)]]))))
             
