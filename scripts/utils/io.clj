@@ -1,16 +1,27 @@
 (ns utils.io
  (:require
   [clojure.java.io :as io]
-  [me.raynes.fs :as fs]))
+  [me.raynes.fs :as fs])
+ (:import [java.io File]))
 
 (defn image?
-  [file]
+  [^File file]
   (let [image-exts #{".jpg" ".jpeg" ".png"}
         ext (-> (.getName file)
                 (fs/extension))]
-    (contains? image-exts ext)))
-    
+    (and 
+      (.isFile file)
+      (contains? image-exts ext))))
+
+
+(defn list-files 
+ [^File dir]
+ (->> (.listFiles dir)
+    (filter #(.isFile %))))
+ 
+        
 (defn images
- [dir]
- (->> (file-seq (io/file dir))
-   (filter image?)))
+ [^String dir]
+ (->> (io/file dir)
+  list-files
+  (filter image?)))

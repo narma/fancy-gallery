@@ -5,7 +5,11 @@ fill me in!
 
 ### Cli tasks
 
-`boot cli -x metadata -a photos`
+Write metadata to metadata.json
+`boot cli -x metadata -a 'photos'`
+
+`boot cli -x metadata -a 'photos m.json'`
+
 `boot cli -x resize -a 'photos photos/230 230 230'`
 
 ## Dependencies

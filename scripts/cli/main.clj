@@ -8,6 +8,6 @@
   [script str-args]
   (let [args (str/split str-args #"\s")]
     (case script
-      "metadata"  (write-metadata (first args))
+      "metadata"  (apply write-metadata args)
       "resize"   (apply resize args)
-      (printf"Invalid command '%s'.\n" script))))
+      (printf "Invalid command '%s'.\n" script))))
